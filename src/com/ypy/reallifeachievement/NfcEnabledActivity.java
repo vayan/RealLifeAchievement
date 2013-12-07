@@ -30,10 +30,11 @@ public class NfcEnabledActivity extends Activity {
 
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
-		mPendingIntent = PendingIntent.getActivity(this, 0,
-				new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+		mPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,
+				getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 
-		IntentFilter ndefIntent = new IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED);
+		IntentFilter ndefIntent = new IntentFilter(
+				NfcAdapter.ACTION_NDEF_DISCOVERED);
 		try {
 			ndefIntent.addDataType("*/*");
 			mIntentFilters = new IntentFilter[] { ndefIntent };
@@ -44,31 +45,35 @@ public class NfcEnabledActivity extends Activity {
 		mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
 		setNfcMessage("");
 	}
-	
-	public static NdefRecord createNewTextRecord(String text, Locale locale, boolean encodeInUtf8) {
-		byte[] langBytes = locale.getLanguage().getBytes(Charset.forName("US-ASCII"));
 
-		Charset utfEncoding = encodeInUtf8 ? Charset.forName("UTF-8") : Charset.forName("UTF-16");
+	public static NdefRecord createNewTextRecord(String text, Locale locale,
+			boolean encodeInUtf8) {
+		byte[] langBytes = locale.getLanguage().getBytes(
+				Charset.forName("US-ASCII"));
+
+		Charset utfEncoding = encodeInUtf8 ? Charset.forName("UTF-8") : Charset
+				.forName("UTF-16");
 		byte[] textBytes = text.getBytes(utfEncoding);
 
 		int utfBit = encodeInUtf8 ? 0 : (1 << 7);
-		char status = (char)(utfBit + langBytes.length);
+		char status = (char) (utfBit + langBytes.length);
 
-		byte[] data = new byte[1 + langBytes.length + textBytes.length]; 
-		data[0] = (byte)status;
+		byte[] data = new byte[1 + langBytes.length + textBytes.length];
+		data[0] = (byte) status;
 		System.arraycopy(langBytes, 0, data, 1, langBytes.length);
-		System.arraycopy(textBytes, 0, data, 1 + langBytes.length, textBytes.length);
+		System.arraycopy(textBytes, 0, data, 1 + langBytes.length,
+				textBytes.length);
 
-		return new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT, new byte[0], data);
+		return new NdefRecord(NdefRecord.TNF_WELL_KNOWN, NdefRecord.RTD_TEXT,
+				new byte[0], data);
 	}
 
 	protected void setNfcMessage(String message) {
-		mNdefMessage = new NdefMessage(
-				new NdefRecord[] {
-						createNewTextRecord(message, Locale.ENGLISH, true)});
-		//mNfcAdapter.enableForegroundNdefPush(this, mNdefMessage);
+		mNdefMessage = new NdefMessage(new NdefRecord[] { createNewTextRecord(
+				message, Locale.ENGLISH, true) });
+		// mNfcAdapter.enableForegroundNdefPush(this, mNdefMessage);
 	}
-	
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		String action = intent.getAction();
@@ -76,22 +81,26 @@ public class NfcEnabledActivity extends Activity {
 
 		String s = "";// = action + "\n\n" + tag.toString();
 
-		Parcelable[] data = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-		
+		Parcelable[] data = intent
+				.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+
 		if (data != null) {
 			try {
-				for (int i = 0; i < data.length; i++) {					
-					NdefRecord [] recs = ((NdefMessage)data[i]).getRecords();
+				for (int i = 0; i < data.length; i++) {
+					NdefRecord[] recs = ((NdefMessage) data[i]).getRecords();
 					for (int j = 0; j < recs.length; j++) {
-						if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN &&
-								Arrays.equals(recs[j].getType(), NdefRecord.RTD_TEXT)) {
+						if (recs[j].getTnf() == NdefRecord.TNF_WELL_KNOWN
+								&& Arrays.equals(recs[j].getType(),
+										NdefRecord.RTD_TEXT)) {
 
 							byte[] payload = recs[j].getPayload();
-							String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8" : "UTF-16";
+							String textEncoding = ((payload[0] & 0200) == 0) ? "UTF-8"
+									: "UTF-16";
 							int langCodeLen = payload[0] & 0077;
 
 							s = new String(payload, langCodeLen + 1,
-											payload.length - langCodeLen - 1, textEncoding);
+									payload.length - langCodeLen - 1,
+									textEncoding);
 						}
 					}
 				}
@@ -100,36 +109,35 @@ public class NfcEnabledActivity extends Activity {
 			}
 
 		}
-		
-		Intent newIntent = new Intent(this, CompareActivity.class);
-		newIntent.putExtra("message", s);
-		startActivity(newIntent);
+
+		if (!s.isEmpty()) {
+			Intent newIntent = new Intent(this, CompareActivity.class);
+			newIntent.putExtra("message", s);
+			startActivity(newIntent);
+		}
 
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
 		super.onResume();
 
-		if (mNfcAdapter != null)
-		{
-			mNfcAdapter.enableForegroundDispatch(this, mPendingIntent, mIntentFilters, mNFCTechLists);
-			mNfcAdapter.enableForegroundNdefPush(this, mNdefMessage);
-			//mNfcAdapter.setNdefPushMessage(null, this);
+		if (mNfcAdapter != null) {
+			mNfcAdapter.enableForegroundDispatch(this, mPendingIntent,
+					mIntentFilters, mNFCTechLists);
+			// mNfcAdapter.enableForegroundNdefPush(this, mNdefMessage);
+			mNfcAdapter.setNdefPushMessage(mNdefMessage, this);
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onPause() {
 		super.onPause();
 
-		if (mNfcAdapter != null)
-		{
+		if (mNfcAdapter != null) {
 			mNfcAdapter.disableForegroundDispatch(this);
-			mNfcAdapter.disableForegroundNdefPush(this);
-			//mNfcAdapter.setNdefPushMessage(null, this);
+			// mNfcAdapter.disableForegroundNdefPush(this);
+			mNfcAdapter.setNdefPushMessage(null, this);
 		}
 	}
 }

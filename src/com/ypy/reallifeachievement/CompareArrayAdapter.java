@@ -10,11 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class CompareArrayAdapter extends ArrayAdapter<ArrayList<ACItem>>{
+public class CompareArrayAdapter extends ArrayAdapter<ACCompare>{
 	private final Context context;
-	private final ArrayList<ArrayList<ACItem>> list;
+	private final ArrayList<ACCompare> list;
 
-	public CompareArrayAdapter(Context context, ArrayList<ArrayList<ACItem>> items) {
+	public CompareArrayAdapter(Context context, ArrayList<ACCompare> items) {
 		super(context, R.layout.cell_compare, items);
 		this.context = context;
 		this.list = items;
@@ -29,13 +29,10 @@ public class CompareArrayAdapter extends ArrayAdapter<ArrayList<ACItem>>{
 		CheckBox doneYou = (CheckBox) rowView.findViewById(R.id.done_you);
 		CheckBox doneOther = (CheckBox) rowView.findViewById(R.id.done_other);
 		
-		doneYou.setChecked(list.get(0).get(position).getDone());
-		doneOther.setChecked(list.get(1).get(position).getDone());
+		achievementTitle.setText(list.get(position).getOther().getName());
+		doneYou.setChecked(list.get(position).getYou().getDone());
+		doneOther.setChecked(list.get(position).getOther().getDone());
 		
-		
-		//achievementTitle.setText(items.get(position).getName());
-		//doneYou.setChecked(items.get(position).getDone());
-		//doneOther.setChecked(items.get(position).getDone());
 		return rowView;
 	}
 }

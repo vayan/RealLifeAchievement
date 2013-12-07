@@ -23,7 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.app.ActionBar;
 
-public class MainActivity extends Activity {
+public class MainActivity extends NfcEnabledActivity {
 
 	public final static String GROUPNAME = "com.example.myfirstapp.GROUPNAME";
 
@@ -36,6 +36,59 @@ public class MainActivity extends Activity {
 
 		setContentView(R.layout.list_of_group);
 
+
+
+	}
+
+	public void addList() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setMessage("Let's give a cute name:");
+
+		// Set an EditText view to get user input
+		final EditText input = new EditText(this);
+		alert.setView(input);
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String value = input.getText().toString();
+				ACGroup groupe = new ACGroup(value, "");
+				myGroups.add(groupe);
+				groupe.saveMe(MainActivity.this);
+				MainActivity.this.adapter.notifyDataSetChanged();
+				return;
+			}
+		});
+
+		alert.setNegativeButton("Cancel", null);
+		alert.show();
+
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu items for use in the action bar
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.action_compose:
+			addList();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		
 		final ListView listview = (ListView) findViewById(R.id.listview);
 
 		new Utils();
@@ -107,50 +160,5 @@ public class MainActivity extends Activity {
 
 			}
 		});
-
-	}
-
-	public void addList() {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setMessage("Let's give a cute name:");
-
-		// Set an EditText view to get user input
-		final EditText input = new EditText(this);
-		alert.setView(input);
-
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				String value = input.getText().toString();
-				ACGroup groupe = new ACGroup(value, "");
-				myGroups.add(groupe);
-				groupe.saveMe(MainActivity.this);
-				MainActivity.this.adapter.notifyDataSetChanged();
-				return;
-			}
-		});
-
-		alert.setNegativeButton("Cancel", null);
-		alert.show();
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu items for use in the action bar
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case R.id.action_compose:
-			addList();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
 	}
 }
