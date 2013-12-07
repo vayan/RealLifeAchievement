@@ -60,6 +60,8 @@ public class GroupActivity extends NfcEnabledActivity {
 				((CheckBox) ((ViewGroup) view).getChildAt(1))
 						.setChecked(achievement.getDone());
 				myGroup.saveMe(GroupActivity.this);
+				setNfcMessage(new Gson().toJson(myGroup));
+
 			}
 		});
 		
@@ -82,6 +84,8 @@ public class GroupActivity extends NfcEnabledActivity {
 										myGroup.saveMe(GroupActivity.this);
 										GroupActivity.this.adapter
 												.notifyDataSetChanged();
+										setNfcMessage(new Gson().toJson(myGroup));
+
 									}
 
 								}).setNegativeButton("Oups... nop.", null)
@@ -129,6 +133,8 @@ public class GroupActivity extends NfcEnabledActivity {
 				/*myGroup.updateHash();*/
 				myGroup.saveMe(GroupActivity.this);
 				GroupActivity.this.adapter.notifyDataSetChanged();
+				setNfcMessage(new Gson().toJson(myGroup));
+
 				return;
 			}
 		});
