@@ -62,4 +62,8 @@ public class ACGroup {
 		}
 	}
 	
+	public String getScore() {
+		return "12/20";
+	}
+	
 }
