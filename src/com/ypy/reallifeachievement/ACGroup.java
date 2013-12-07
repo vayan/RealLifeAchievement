@@ -79,7 +79,7 @@ public class ACGroup {
 	
 	public void onChangeData() {
 		updatePoints();
-		updateHash();
+		//updateHash();
 	}
 
 	public void updatePoints() {
@@ -127,16 +127,22 @@ public class ACGroup {
 		FileInputStream fos = null;
 		try {
 			fos = ctxt.openFileInput(filename);
-		} catch (FileNotFoundException e) {e.printStackTrace(); return;}
+		} catch (FileNotFoundException e) {e.printStackTrace(); 
+		Log.i("DEBUGME","FILE NOT FOUND BYBYE " + filename);
+		return;}
 		try {
 			 int ch;
 			 StringBuffer strContent = new StringBuffer("");
 		     
-			 while((ch = fos.read()) != -1)
+			 while((ch = fos.read()) != -1)/
 		        strContent.append((char)ch);
 			thisjson = strContent.toString();
 			fos.close();
-		} catch (IOException e) {e.printStackTrace(); return;}
+		} catch (IOException e) {
+			e.printStackTrace(); 
+			Log.i("DEBUGME","IO BUG BYBYE " + filename); 
+			return;
+		}
 		
 		ACGroup bu = Utils.deserialize(thisjson);
 		this.name = bu.getName();
