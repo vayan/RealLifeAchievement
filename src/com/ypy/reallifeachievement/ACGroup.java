@@ -17,7 +17,7 @@ public class ACGroup {
 	private String descr;
 	private List<ACItem> acs;
 	
-	public String ext = ".lazy.db";
+	public final String EXT = ".lazy.db";
 
 	public ACGroup(String name, String descr) {
 		super();
@@ -91,7 +91,8 @@ public class ACGroup {
 	}
 	
 	public void saveMe(Context ctxt) {
-		String filename = this.id+ext;
+		//TOOD : Maybe check overwrite
+		String filename = this.id+EXT;
 		String thisjson = new Utils().serialize(this);
 
 		FileOutputStream fos = null;
@@ -106,25 +107,35 @@ public class ACGroup {
 	
 	public void restoreMe(Context ctxt) {
 		//TODO : Check if I don't exist
-		String filename = this.id+ext;
-		byte[] thisjson = null;
+		String filename = this.id+EXT;
+		String thisjson = null;
 		
 		FileInputStream fos = null;
 		try {
 			fos = ctxt.openFileInput(filename);
 		} catch (FileNotFoundException e) {e.printStackTrace();}
 		try {
-			fos.read(thisjson);
+			 int ch;
+			 StringBuffer strContent = new StringBuffer("");
+		     
+			 while((ch = fos.read()) != -1)
+		        strContent.append((char)ch);
+			thisjson = strContent.toString();
 			fos.close();
 		} catch (IOException e) {e.printStackTrace();}
 		
-		ACGroup bu = new Utils().deserialize(thisjson.toString());
+		ACGroup bu = new Utils().deserialize(thisjson);
 		this.name = bu.getName();
 		this.descr = bu.getDescr();
 		
 		for (ACItem ac : bu.getAcs()) {
 			this.AddACItem(ac);
 		}
+	}
+	
+	public void deleteMe(Context ctxt) {
+		String filename = this.id+EXT;
+		ctxt.deleteFile(filename);
 	}
 
 	public void debugAfflist() {

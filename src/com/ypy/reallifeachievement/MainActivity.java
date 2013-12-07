@@ -11,17 +11,15 @@ import android.app.Activity;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 
-public class MainActivity extends NfcEnabledActivity {
+public class MainActivity extends Activity {
 
 	public final static String GROUPNAME = "com.example.myfirstapp.GROUPNAME";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.list_of_group);
 
 		final ListView listview = (ListView) findViewById(R.id.listview);
@@ -50,6 +48,7 @@ public class MainActivity extends NfcEnabledActivity {
 				startActivity(intent);
 			}
 		});
+
 	}
 
 }
