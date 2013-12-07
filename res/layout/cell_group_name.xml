@@ -11,7 +11,8 @@
         android:layout_weight="0.87"
         android:padding="10dp"
         android:text="Le titre de la resolution"
-        android:width="120dp" />
+        android:width="120dp"
+        android:textSize="20dp" />
 
     <TextView
         android:id="@+id/Score"

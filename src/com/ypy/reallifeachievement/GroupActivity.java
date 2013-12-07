@@ -16,20 +16,24 @@ public class GroupActivity extends NfcEnabledActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group);
-		// Show the Up button in the action bar.
-		setupActionBar();
-		
 		Intent intent = getIntent();
 		String message = intent.getStringExtra(MainActivity.GROUPNAME);
 		
+		ACGroup  groupe = findGroup(message);
+
+		setTitle(groupe.getName());
+
+		// Show the Up button in the action bar.
+		setupActionBar();
+		
+		
 		  // Create the text view
 	   
-		ACGroup  groupe = findGroup(message);
 		
 		setNfcMessage(new Gson().toJson(groupe));
 		
 	    // Set the text view as the activity layout
-		 TextView textView = new TextView(this);
+		TextView textView = new TextView(this);
 	    textView.setTextSize(40);
 	    textView.setText(groupe.getName());
 
