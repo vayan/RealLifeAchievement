@@ -54,7 +54,8 @@ public class ACGroup {
 	}
 	public void AddACItem(ACItem new_ac) {
 		this.acs.add(new_ac);
-		this.updatePoints();
+		this.onChangeData();
+		
 	}
 	
 	public ACItem GetACItem() {
@@ -64,16 +65,21 @@ public class ACGroup {
 
 	public void RmACItem(ACItem ac) {
 		this.acs.remove(ac);
-		this.updatePoints();
+		this.onChangeData();
 	}
 	public void EditACItem(ACItem new_ac) {
 		for (ACItem ac : acs) {
 			if (ac.getId() == new_ac.getId()) {
 				this.RmACItem(ac); 
-				this.AddACItem(new_ac); //TODO : useless 2 call updatepoints
+				this.AddACItem(new_ac); //TODO : useless 2 call onChangeData
 				return;
 			}
 		}
+	}
+	
+	public void onChangeData() {
+		updatePoints();
+		updateHash();
 	}
 
 	public void updatePoints() {
@@ -82,6 +88,14 @@ public class ACGroup {
 			ac.setPoints(base_pts);
 			base_pts *= base_pts;
 		}
+	}
+	
+	public void updateHash() {
+		String hash = name;
+		for (ACItem ac : acs) {
+			hash = Utils.str2md5(hash+ac.getId());
+		}
+		setId(hash);
 	}
 
 	public String getScore() {		
