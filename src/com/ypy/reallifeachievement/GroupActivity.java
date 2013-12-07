@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 /*import android.support.v4.app.NavUtils;*/
 
-public class GroupActivity extends Activity {
+public class GroupActivity extends NfcEnabledActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,8 @@ public class GroupActivity extends Activity {
 		  // Create the text view
 	   
 		ACGroup  groupe = findGroup(message);
+		
+		setNfcMessage(new Gson().toJson(groupe));
 		
 	    // Set the text view as the activity layout
 		 TextView textView = new TextView(this);

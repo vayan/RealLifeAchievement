@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_send_receive">SendReceiveActivity</string>
     <string name="title_activity_group">Name of the group</string>
+    <string name="title_activity_compare">CompareActivity</string>
 
 </resources>

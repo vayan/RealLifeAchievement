@@ -102,6 +102,10 @@ public class NfcEnabledActivity extends Activity {
 			}
 
 		}
+		
+		Intent newIntent = new Intent(this, CompareActivity.class);
+		newIntent.putExtra("message", s);
+		startActivity(newIntent);
 
 	}
 

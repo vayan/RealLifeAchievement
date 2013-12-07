@@ -46,7 +46,7 @@ public class ACGroup {
 		this.descr = descr;
 	}
 
-	public List<ACItem> getAcs() {
+	public ArrayList<ACItem> getAcs() {
 		return acs;
 	}
 	public void setAcs(ArrayList<ACItem> acs) {
