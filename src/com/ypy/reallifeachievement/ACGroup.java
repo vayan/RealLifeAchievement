@@ -15,7 +15,7 @@ public class ACGroup {
 	private String id; //md5 hash of the name
 	private String name;
 	private String descr;
-	private List<ACItem> acs;
+	private ArrayList<ACItem> acs;
 	
 	public final String EXT = ".lazy.db";
 
@@ -49,7 +49,7 @@ public class ACGroup {
 	public List<ACItem> getAcs() {
 		return acs;
 	}
-	public void setAcs(List<ACItem> acs) {
+	public void setAcs(ArrayList<ACItem> acs) {
 		this.acs = acs;
 	}
 	public void AddACItem(ACItem new_ac) {
