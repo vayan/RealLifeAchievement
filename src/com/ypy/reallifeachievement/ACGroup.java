@@ -134,7 +134,7 @@ public class ACGroup {
 			 int ch;
 			 StringBuffer strContent = new StringBuffer("");
 		     
-			 while((ch = fos.read()) != -1)/
+			 while((ch = fos.read()) != -1)
 		        strContent.append((char)ch);
 			thisjson = strContent.toString();
 			fos.close();
