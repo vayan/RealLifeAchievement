@@ -5,7 +5,7 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 
-public class MainActivity extends Activity {
+public class MainActivity extends NfcEnabledActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +20,8 @@ public class MainActivity extends Activity {
 		
 		ACGroup newGroup = utils.deserialize(test);
 		Log.i("Test", newGroup.getDescr());
+		
+		setNfcMessage(test);
 	}
 
 	@Override
