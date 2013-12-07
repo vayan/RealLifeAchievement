@@ -10,14 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-public class CompareArrayAdapter extends ArrayAdapter<ACItem>{
+public class CompareArrayAdapter extends ArrayAdapter<ArrayList<ACItem>>{
 	private final Context context;
-	private final ArrayList<ACItem> items;
+	private final ArrayList<ArrayList<ACItem>> list;
 
-	public CompareArrayAdapter(Context context, ArrayList<ACItem> items) {
+	public CompareArrayAdapter(Context context, ArrayList<ArrayList<ACItem>> items) {
 		super(context, R.layout.cell_compare, items);
 		this.context = context;
-		this.items = items;
+		this.list = items;
 	}
 
 	@Override
@@ -28,10 +28,14 @@ public class CompareArrayAdapter extends ArrayAdapter<ACItem>{
 		TextView achievementTitle = (TextView) rowView.findViewById(R.id.achievement_title);
 		CheckBox doneYou = (CheckBox) rowView.findViewById(R.id.done_you);
 		CheckBox doneOther = (CheckBox) rowView.findViewById(R.id.done_other);
-				
-		achievementTitle.setText(items.get(position).getName());
-		doneYou.setChecked(items.get(position).getDone());
-		doneOther.setChecked(items.get(position).getDone());
+		
+		doneYou.setChecked(list.get(0).get(position).getDone());
+		doneOther.setChecked(list.get(1).get(position).getDone());
+		
+		
+		//achievementTitle.setText(items.get(position).getName());
+		//doneYou.setChecked(items.get(position).getDone());
+		//doneOther.setChecked(items.get(position).getDone());
 		return rowView;
 	}
 }

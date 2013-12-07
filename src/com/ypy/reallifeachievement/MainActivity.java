@@ -30,7 +30,13 @@ public class MainActivity extends NfcEnabledActivity {
 		myGroups.add(new ACGroup("Beijing tour", "Let s visit Beijing !"));
 		myGroups.get(0).AddACItem(
 				new ACItem("Muraille de chine", "Devenez un homme un vrais"));
-
+		myGroups.get(0).AddACItem(
+				new ACItem("Muraille de chine", "Devenez un homme un vrais"));
+		myGroups.get(0).AddACItem(
+				new ACItem("Muraille de chine", "Devenez un homme un vrais"));
+		myGroups.get(0).AddACItem(
+				new ACItem("Muraille de chine", "Devenez un homme un vrais"));
+		
 		myGroups.add(new ACGroup("Marathon 2014",
 				"what if you become an athlet next year ?"));
 		myGroups.add(new ACGroup("In your bed. Or not",

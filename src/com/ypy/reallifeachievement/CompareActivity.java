@@ -1,5 +1,7 @@
 package com.ypy.reallifeachievement;
 
+import java.util.ArrayList;
+
 import com.google.gson.Gson;
 
 import android.os.Bundle;
@@ -15,19 +17,24 @@ public class CompareActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_compare);
+
+		TextView textView = (TextView) findViewById(R.id.group_title);
 		
 		Intent intent = getIntent();
-		String string = intent.getExtras().getString("message");
+		ACGroup group = new Gson().fromJson(intent.getExtras().getString("message"), ACGroup.class);
+		textView.setText(group.getName());
+		ListView listView = (ListView)findViewById(R.id.achievement_list);
 		
-		TextView textView = (TextView) findViewById(R.id.group_title);
-		textView.setText(string);
-		
-//		Intent intent = getIntent();
-//		ACGroup group = new Gson().fromJson(intent.getExtras().getString("message"), ACGroup.class);
-//		
-//		ListView listView = (ListView)findViewById(R.id.achievement_list);
-//		final CompareArrayAdapter adapter = new CompareArrayAdapter(this, group.getAcs());
-//		listView.setAdapter(adapter);
+		ACGroup groupMe = new ACGroup(group.getName(), "");
+		groupMe.restoreMe(this);
+//		if (!groupMe.getAcs().isEmpty())
+//		{
+//			ArrayList<ArrayList<ACItem>> list = new ArrayList<ArrayList<ACItem>>();
+//			list.add(groupMe.getAcs());
+//			list.add(group.getAcs());
+//			final CompareArrayAdapter adapter = new CompareArrayAdapter(this, list);
+//			listView.setAdapter(adapter);
+//		}
 	}
 
 	@Override

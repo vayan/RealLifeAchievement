@@ -14,14 +14,16 @@
 
     <CheckBox
         android:id="@+id/done_other"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:enabled="false" />
         
     <CheckBox
         android:id="@+id/done_you"
-        android:layout_width="wrap_content"
+        android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/done_other" />
+        android:layout_toLeftOf="@id/done_other"
+        android:enabled="false" />
 
 </RelativeLayout>
