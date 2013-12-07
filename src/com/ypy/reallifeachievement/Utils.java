@@ -5,6 +5,9 @@ import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import android.content.Context;
+
 import com.google.gson.Gson;
 
 public class Utils {
@@ -39,4 +42,9 @@ public class Utils {
 		
 		return gson.fromJson(string, ACGroup.class);
 	}
+	
+	public void RestoreAllGroup() {
+		//TODO : GET ALL FILES
+	}
+	
 }

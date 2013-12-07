@@ -1,5 +1,6 @@
 package com.ypy.reallifeachievement;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,6 +16,8 @@ public class ACGroup {
 	private String name;
 	private String descr;
 	private List<ACItem> acs;
+	
+	public String ext = ".lazy.db";
 
 	public ACGroup(String name, String descr) {
 		super();
@@ -43,6 +46,12 @@ public class ACGroup {
 		this.descr = descr;
 	}
 
+	public List<ACItem> getAcs() {
+		return acs;
+	}
+	public void setAcs(List<ACItem> acs) {
+		this.acs = acs;
+	}
 	public void AddACItem(ACItem new_ac) {
 		this.acs.add(new_ac);
 		this.updatePoints();
@@ -81,19 +90,41 @@ public class ACGroup {
 		return Integer.toString(completed) + "/" + Integer.toString(acs.size());
 	}
 	
-	public void saveGroup() {
-//		String ext = ".lazy.db";
-//		String filename = this.id+ext;
-//		String thisjson = "";
-//
-//		FileOutputStream fos = null;
-//		try {
-//			fos = ctxt.openFileOutput(filename, ctxt.MODE_PRIVATE);
-//		} catch (FileNotFoundException e) {e.printStackTrace();}
-//		try {
-//			fos.write(thisjson.getBytes());
-//			fos.close();
-//		} catch (IOException e) {e.printStackTrace();}
+	public void saveMe(Context ctxt) {
+		String filename = this.id+ext;
+		String thisjson = new Utils().serialize(this);
+
+		FileOutputStream fos = null;
+		try {
+			fos = ctxt.openFileOutput(filename, ctxt.MODE_PRIVATE);
+		} catch (FileNotFoundException e) {e.printStackTrace();}
+		try {
+			fos.write(thisjson.getBytes());
+			fos.close();
+		} catch (IOException e) {e.printStackTrace();}
+	}
+	
+	public void restoreMe(Context ctxt) {
+		//TODO : Check if I don't exist
+		String filename = this.id+ext;
+		byte[] thisjson = null;
+		
+		FileInputStream fos = null;
+		try {
+			fos = ctxt.openFileInput(filename);
+		} catch (FileNotFoundException e) {e.printStackTrace();}
+		try {
+			fos.read(thisjson);
+			fos.close();
+		} catch (IOException e) {e.printStackTrace();}
+		
+		ACGroup bu = new Utils().deserialize(thisjson.toString());
+		this.name = bu.getName();
+		this.descr = bu.getDescr();
+		
+		for (ACItem ac : bu.getAcs()) {
+			this.AddACItem(ac);
+		}
 	}
 
 	public void debugAfflist() {
