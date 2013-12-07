@@ -55,6 +55,13 @@ public class ACGroup {
 			}
 		}
 	}
+	
+	public String getScore() {		
+		int completed = 0;
+		for (ACItem ac : acs) if (ac.getDone()) completed ++;
+		return Integer.toString(completed) + "/" + Integer.toString(acs.size());
+	}
+	
 	public void debugAfflist() {
 		Log.i("DEBUGME","START DEBUG AFF LIST");
 		for (ACItem ac : acs ) {
@@ -62,8 +69,6 @@ public class ACGroup {
 		}
 	}
 	
-	public String getScore() {
-		return "12/20";
-	}
+	
 	
 }
