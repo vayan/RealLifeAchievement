@@ -7,7 +7,7 @@ import java.util.List;
 import android.util.Log;
 
 public class ACGroup {
-	private String id;
+	private String id; //md5 hash of the name
 	private String name;
 	private String descr;
 	private List<ACItem> acs;
