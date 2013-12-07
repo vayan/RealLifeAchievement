@@ -38,23 +38,6 @@ public class MainActivity extends Activity {
 
 		final ListView listview = (ListView) findViewById(R.id.listview);
 
-<<<<<<< HEAD
-		final ArrayList<ACGroup> myGroups = new ArrayList<ACGroup>();
-		myGroups.add(new ACGroup("Beijing tour", "Let s visit Beijing !"));
-		myGroups.get(0).AddACItem(
-				new ACItem("Muraille de chine", "Devenez un homme un vrais"));
-		myGroups.get(0).AddACItem(
-				new ACItem("Muraille de chine", "Devenez un homme un vrais"));
-		myGroups.get(0).AddACItem(
-				new ACItem("Muraille de chine", "Devenez un homme un vrais"));
-		myGroups.get(0).AddACItem(
-				new ACItem("Muraille de chine", "Devenez un homme un vrais"));
-		
-		myGroups.add(new ACGroup("Marathon 2014",
-				"what if you become an athlet next year ?"));
-		myGroups.add(new ACGroup("In your bed. Or not",
-				"Tell me what happened there..."));
-=======
 		myGroups = new Utils().RestoreAllGroup(this);
 
 		if (myGroups.size() == 0) {
@@ -74,7 +57,6 @@ public class MainActivity extends Activity {
 			myGroups.get(2).saveMe(this);
 
 		}
->>>>>>> fd05bfeff0bc900c2930993e85676de8e7d41495
 
 		adapter = new MyArrayAdapter(this, myGroups);
 		listview.setAdapter(adapter);

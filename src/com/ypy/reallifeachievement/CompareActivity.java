@@ -26,7 +26,7 @@ public class CompareActivity extends Activity {
 		ListView listView = (ListView)findViewById(R.id.achievement_list);
 		
 		ACGroup groupMe = new ACGroup(group.getName(), "");
-		groupMe.restoreMe(this);
+		//groupMe.restoreMe(this);
 //		if (!groupMe.getAcs().isEmpty())
 //		{
 //			ArrayList<ArrayList<ACItem>> list = new ArrayList<ArrayList<ACItem>>();
