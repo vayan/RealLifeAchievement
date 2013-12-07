@@ -17,7 +17,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 public class Utils {
-	public String str2md5(String str) {
+	public static String str2md5(String str) {
 		MessageDigest msgdig = null;
 		byte[] bytest = null;
 		
@@ -35,21 +35,21 @@ public class Utils {
 		return hashbyte.toString();
 	}
 	
-	public String serialize(ACGroup object)
+	public static String serialize(ACGroup object)
 	{
 		Gson gson = new Gson();
 		
 		return gson.toJson(object);
 	}
 	
-	public ACGroup deserialize(String string)
+	public static ACGroup deserialize(String string)
 	{
 		Gson gson = new Gson();
 		
 		return gson.fromJson(string, ACGroup.class);
 	}
 	
-	public ArrayList<ACGroup> RestoreAllGroup(Context ctxt) {
+	public static ArrayList<ACGroup> RestoreAllGroup(Context ctxt) {
 		ArrayList<ACGroup> myGroups = new ArrayList<ACGroup>();
 		String[] files = ctxt.fileList();
 		String thisjson = null;

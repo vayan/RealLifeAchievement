@@ -30,7 +30,7 @@ public class ACGroup {
 		return id;
 	}
 	public void setId(String id) {
-		String id_md5 = new Utils().str2md5(id);
+		String id_md5 = Utils.str2md5(id);
 		this.id = id_md5;
 	}
 	public String getName() {
@@ -93,7 +93,7 @@ public class ACGroup {
 	public void saveMe(Context ctxt) {
 		//TOOD : Maybe check overwrite
 		String filename = this.id+EXT;
-		String thisjson = new Utils().serialize(this);
+		String thisjson = Utils.serialize(this);
 
 		FileOutputStream fos = null;
 		try {
@@ -124,7 +124,7 @@ public class ACGroup {
 			fos.close();
 		} catch (IOException e) {e.printStackTrace();}
 		
-		ACGroup bu = new Utils().deserialize(thisjson);
+		ACGroup bu = Utils.deserialize(thisjson);
 		this.name = bu.getName();
 		this.descr = bu.getDescr();
 		

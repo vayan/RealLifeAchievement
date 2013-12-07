@@ -48,7 +48,7 @@ public class ACItem {
 		return id;
 	}
 	public void setId(String id) {
-		String id_md5 = new Utils().str2md5(id);
+		String id_md5 = Utils.str2md5(id);
 		this.id = id_md5;
 	}
 
