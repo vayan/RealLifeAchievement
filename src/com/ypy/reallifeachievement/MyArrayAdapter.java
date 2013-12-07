@@ -20,6 +20,7 @@ public class MyArrayAdapter extends ArrayAdapter<ACGroup> {
 		this.context = context;
 		this.groups = groups;
 
+		/*this.se*/
 	}
 
 	@Override
@@ -31,7 +32,23 @@ public class MyArrayAdapter extends ArrayAdapter<ACGroup> {
 		TextView score = (TextView) rowView.findViewById(R.id.Score);
 		groupName.setText(groups.get(position).getName());
 		score.setText(groups.get(position).getScore());		
+		/*  listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+	     @Override
+	      public void onItemClick(AdapterView<?> parent,  final View view,
+	          int position, long id) {
+	        final String item = (String) parent.getItemAtPosition(position);
+	        view.animate().setDuration(2000).alpha(0)
+	            .withEndAction(new Runnable() {
+	              @Override
+	              public void run() {
+	                list.remove(item);
+	                adapter.notifyDataSetChanged();
+	                view.setAlpha(1);
+	              }
+	            });
+	      }
+	    }); */
 		return rowView;
 
 	}
