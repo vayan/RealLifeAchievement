@@ -44,6 +44,9 @@ public class ACItem {
 	public void setDone(boolean done) {
 		this.done = done;
 	}
+	public void toggleDone() {
+		this.done = !this.done;
+	}
 	public String getId() {
 		return id;
 	}

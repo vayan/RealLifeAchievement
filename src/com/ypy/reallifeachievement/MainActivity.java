@@ -38,7 +38,8 @@ public class MainActivity extends Activity {
 
 		final ListView listview = (ListView) findViewById(R.id.listview);
 
-		myGroups = new Utils().RestoreAllGroup(this);
+		new Utils();
+		myGroups = Utils.RestoreAllGroup(this);
 
 		if (myGroups.size() == 0) {
 
@@ -67,8 +68,9 @@ public class MainActivity extends Activity {
 					int position, long id) {
 				Intent intent = new Intent(view.getContext(),
 						GroupActivity.class);
-				intent.putExtra(GROUPNAME,
-						new Gson().toJson(parent.getItemAtPosition(position)));
+				ACGroup groupe = (ACGroup) parent.getItemAtPosition(position);
+				Log.i("SEXE", "avant:" + groupe.getId());
+				intent.putExtra(GROUPNAME, groupe.getName());
 				startActivity(intent);
 				/**
 				 * overridePendingTransition(R.anim.animation_leave,
