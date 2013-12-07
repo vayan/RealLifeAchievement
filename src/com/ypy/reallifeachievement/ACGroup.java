@@ -15,13 +15,11 @@ public class ACGroup {
 	private String name;
 	private String descr;
 	private List<ACItem> acs;
-	private Context ctxt;
 
-	public ACGroup(String name, String descr, Context ctxt) {
+	public ACGroup(String name, String descr) {
 		super();
 		this.name = name;
 		this.descr = descr;
-		this.ctxt = ctxt;
 		acs = new ArrayList<ACItem>();
 		this.setId(name);
 	}
@@ -84,18 +82,18 @@ public class ACGroup {
 	}
 	
 	public void saveGroup() {
-		String ext = ".lazy.db";
-		String filename = this.id+ext;
-		String thisjson = "";
-
-		FileOutputStream fos = null;
-		try {
-			fos = ctxt.openFileOutput(filename, ctxt.MODE_PRIVATE);
-		} catch (FileNotFoundException e) {e.printStackTrace();}
-		try {
-			fos.write(thisjson.getBytes());
-			fos.close();
-		} catch (IOException e) {e.printStackTrace();}
+//		String ext = ".lazy.db";
+//		String filename = this.id+ext;
+//		String thisjson = "";
+//
+//		FileOutputStream fos = null;
+//		try {
+//			fos = ctxt.openFileOutput(filename, ctxt.MODE_PRIVATE);
+//		} catch (FileNotFoundException e) {e.printStackTrace();}
+//		try {
+//			fos.write(thisjson.getBytes());
+//			fos.close();
+//		} catch (IOException e) {e.printStackTrace();}
 	}
 
 	public void debugAfflist() {
