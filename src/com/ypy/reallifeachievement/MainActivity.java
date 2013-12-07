@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -79,6 +80,7 @@ public class MainActivity extends Activity {
 	      String item = getItem(position);
 	      return mIdMap.get(item);
 	    }
+
 
 	    @Override
 	    public boolean hasStableIds() {

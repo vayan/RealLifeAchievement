@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import com.google.gson.Gson;
 
 public class Utils {
 	public String str2md5(String str) {
@@ -23,5 +24,19 @@ public class Utils {
 		}
 		byte[] hashbyte = msgdig.digest(bytest);
 		return hashbyte.toString();
-	}	
+	}
+	
+	public String serialize(ACGroup object)
+	{
+		Gson gson = new Gson();
+		
+		return gson.toJson(object);
+	}
+	
+	public ACGroup deserialize(String string)
+	{
+		Gson gson = new Gson();
+		
+		return gson.fromJson(string, ACGroup.class);
+	}
 }
