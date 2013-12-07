@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="16"
         android:targetSdkVersion="18" />
     <uses-permission android:name="android.permission.NFC"/>
 
@@ -24,8 +24,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ypy.reallifeachievement.SendReceiveActivity"
-            android:label="@string/title_activity_send_receive" >
+            android:name="com.ypy.reallifeachievement.GroupActivity"
+            android:label="@string/title_activity_group"
+            android:parentActivityName="com.ypy.reallifeachievement.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ypy.reallifeachievement.MainActivity" />
         </activity>
     </application>
 

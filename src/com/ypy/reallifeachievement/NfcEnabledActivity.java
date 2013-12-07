@@ -41,7 +41,8 @@ public class NfcEnabledActivity extends Activity {
 			Log.e("TagDispatch", e.toString());
 		}
 
-		mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } }; 
+		mNFCTechLists = new String[][] { new String[] { NfcF.class.getName() } };
+		setNfcMessage("");
 	}
 	
 	public static NdefRecord createNewTextRecord(String text, Locale locale, boolean encodeInUtf8) {
@@ -101,10 +102,6 @@ public class NfcEnabledActivity extends Activity {
 			}
 
 		}
-
-//		Intent intentActivity = new Intent(this, SendReceiveActivity.class);
-//		intentActivity.putExtra("message", s);
-//		startActivity(intentActivity);
 
 	}
 
