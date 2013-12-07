@@ -113,7 +113,7 @@ public class ACGroup {
 		FileInputStream fos = null;
 		try {
 			fos = ctxt.openFileInput(filename);
-		} catch (FileNotFoundException e) {e.printStackTrace();}
+		} catch (FileNotFoundException e) {e.printStackTrace(); return;}
 		try {
 			 int ch;
 			 StringBuffer strContent = new StringBuffer("");
@@ -122,7 +122,7 @@ public class ACGroup {
 		        strContent.append((char)ch);
 			thisjson = strContent.toString();
 			fos.close();
-		} catch (IOException e) {e.printStackTrace();}
+		} catch (IOException e) {e.printStackTrace(); return;}
 		
 		ACGroup bu = Utils.deserialize(thisjson);
 		this.name = bu.getName();

@@ -57,7 +57,6 @@ public class MainActivity extends Activity {
 			myGroups.get(2).saveMe(this);
 
 		}
-
 		adapter = new MyArrayAdapter(this, myGroups);
 		listview.setAdapter(adapter);
 
