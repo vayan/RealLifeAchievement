@@ -56,7 +56,7 @@ public class Utils {
 		
 		for (String filename : files) {
 			Log.i("DEBUGME","ALL FILES " + filename);
-			if (filename.contains(".lazy.db")) {
+			if (filename.contains(ACGroup.EXT)) {
 				InputStream fos = null;
 				Log.i("DEBUGME","FIND FILES Restoring");
 				try {

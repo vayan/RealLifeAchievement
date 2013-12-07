@@ -17,7 +17,7 @@ public class ACGroup {
 	private String descr;
 	private ArrayList<ACItem> acs;
 	
-	public final String EXT = ".lazy.db";
+	public static String EXT = ".lazy.db";
 
 	public ACGroup(String name, String descr) {
 		super();
