@@ -36,8 +36,6 @@ public class MainActivity extends NfcEnabledActivity {
 
 		setContentView(R.layout.list_of_group);
 
-
-
 	}
 
 	public void addList() {
