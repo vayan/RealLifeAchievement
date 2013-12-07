@@ -11,7 +11,7 @@ public class ACGroup {
 	private String name;
 	private String descr;
 	private List<ACItem> acs;
-	
+
 	public ACGroup(String name, String descr) {
 		super();
 		this.name = name;
@@ -38,37 +38,47 @@ public class ACGroup {
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
-	
-	public void AddACItem(ACItem ac) {
-		this.acs.add(ac);
+
+	public void AddACItem(ACItem new_ac) {
+		this.acs.add(new_ac);
+		this.updatePoints();
 	}
-	
+
 	public void RmACItem(ACItem ac) {
 		this.acs.remove(ac);
+		this.updatePoints();
 	}
 	public void EditACItem(ACItem new_ac) {
 		for (ACItem ac : acs) {
 			if (ac.getId() == new_ac.getId()) {
-				this.acs.remove(ac);
-				this.acs.add(new_ac);
+				this.RmACItem(ac); 
+				this.AddACItem(new_ac); //TODO : useless 2 call updatepoints
 				return;
 			}
 		}
 	}
-	
+
+	public void updatePoints() {
+		int base_pts = 5;
+		for (ACItem ac : acs) {
+			ac.setPoints(base_pts);
+			base_pts *= base_pts;
+		}
+	}
+
 	public String getScore() {		
 		int completed = 0;
 		for (ACItem ac : acs) if (ac.getDone()) completed ++;
 		return Integer.toString(completed) + "/" + Integer.toString(acs.size());
 	}
-	
+
 	public void debugAfflist() {
 		Log.i("DEBUGME","START DEBUG AFF LIST");
 		for (ACItem ac : acs ) {
 			Log.i("DEBUGME",ac.getName());
 		}
 	}
-	
-	
-	
+
+
+
 }

@@ -8,6 +8,7 @@ public class ACItem {
 	private String name;
 	private String descr;
 	private boolean done;
+	private int points;
 	
 	public ACItem(String name, String descr) {
 		super();
@@ -15,6 +16,7 @@ public class ACItem {
 		this.descr = descr;
 		this.done = false;
 		this.weight = 0;
+		this.points = 0;
 	}
 	
 	public int getWeight() {
@@ -49,7 +51,13 @@ public class ACItem {
 		String id_md5 = new Utils().str2md5(id);
 		this.id = id_md5;
 	}
-	
-	
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}	
 	
 }	
