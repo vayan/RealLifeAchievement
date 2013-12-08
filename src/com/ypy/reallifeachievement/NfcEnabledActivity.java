@@ -71,6 +71,7 @@ public class NfcEnabledActivity extends Activity {
 	protected void setNfcMessage(String message) {
 		mNdefMessage = new NdefMessage(new NdefRecord[] { createNewTextRecord(
 				message, Locale.ENGLISH, true) });
+		mNfcAdapter.setNdefPushMessage(mNdefMessage, this);
 		// mNfcAdapter.enableForegroundNdefPush(this, mNdefMessage);
 	}
 

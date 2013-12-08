@@ -33,6 +33,11 @@ public class CompareActivity extends NfcEnabledActivity {
 		groupMe.restoreMe(this);
 		if (!groupMe.getAcs().isEmpty())
 		{
+			if (!groupMe.getId_state().equals(group.getId_state()))
+			{
+				updateList(groupMe, group);
+				return;
+			}
 			setNfcMessage(intent.getStringExtra("message"));
 			ArrayList<ACCompare> list = new ArrayList<ACCompare>();
 			for (int i = 0; i < groupMe.getAcs().size(); i++)
@@ -57,7 +62,41 @@ public class CompareActivity extends NfcEnabledActivity {
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
+				for (ACItem item : group.getAcs())
+					item.setDone(false);
 				group.saveMe(getApplicationContext());
+				CompareActivity.this.finish();
+			}
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				CompareActivity.this.finish();
+			}
+		});
+		alert.show();
+	}
+	
+	private void updateList(final ACGroup groupYou, final ACGroup groupOther)
+	{
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setMessage("Do you want to update this list?");
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				for (ACItem item : groupOther.getAcs())
+					item.setDone(false);
+				
+				for (ACItem item : groupYou.getAcs())
+				{
+					ACItem newItem = groupOther.findAC(item.getId());
+					if (newItem != null)
+						if (newItem.getDone())
+							newItem.setDone(true);
+				}
+				groupOther.saveMe(getApplicationContext());
 				CompareActivity.this.finish();
 			}
 		});
