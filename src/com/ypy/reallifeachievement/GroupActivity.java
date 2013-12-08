@@ -26,12 +26,78 @@ public class GroupActivity extends NfcEnabledActivity {
 
 	ACGroup myGroup = null;
 	achievementAdaptater adapter = null;
-
+	Intent intent;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_group);
-		Intent intent = getIntent();
+		intent = getIntent();
+	}
+
+	private ACGroup findGroup(String intentMessage) {
+		ACGroup groupe = new ACGroup(intentMessage, "");
+		groupe.restoreMe(this);
+		return groupe;
+	}
+
+	/**
+	 * Set up the {@link android.app.ActionBar}.
+	 */
+	private void setupActionBar() {
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.group, menu);
+		return true;
+	}
+	
+	public void addAchievement() {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setMessage("Let's give a cute name:");
+
+		// Set an EditText view to get user input
+		final EditText input = new EditText(this);
+		alert.setView(input);
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				String value = input.getText().toString();
+				ACItem achievement = new ACItem(value, "");
+				myGroup.AddACItem(achievement);
+				/*myGroup.updateHash();*/
+				myGroup.saveMe(GroupActivity.this);
+				GroupActivity.this.adapter.notifyDataSetChanged();
+				setNfcMessage(new Gson().toJson(myGroup));
+
+				return;
+			}
+		});
+
+		alert.setNegativeButton("Cancel", null);
+		alert.show();
+
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.action_compose_achievement:
+			addAchievement();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
 		String message = intent.getStringExtra(MainActivity.GROUPNAME);
 
 		myGroup = findGroup(message);
@@ -94,68 +160,7 @@ public class GroupActivity extends NfcEnabledActivity {
 
 			}
 		});
-
 	}
-
-	private ACGroup findGroup(String intentMessage) {
-		ACGroup groupe = new ACGroup(intentMessage, "");
-		groupe.restoreMe(this);
-		return groupe;
-	}
-
-	/**
-	 * Set up the {@link android.app.ActionBar}.
-	 */
-	private void setupActionBar() {
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.group, menu);
-		return true;
-	}
-	
-	public void addAchievement() {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setMessage("Let's give a cute name:");
-
-		// Set an EditText view to get user input
-		final EditText input = new EditText(this);
-		alert.setView(input);
-
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				String value = input.getText().toString();
-				ACItem achievement = new ACItem(value, "");
-				myGroup.AddACItem(achievement);
-				/*myGroup.updateHash();*/
-				myGroup.saveMe(GroupActivity.this);
-				GroupActivity.this.adapter.notifyDataSetChanged();
-				setNfcMessage(new Gson().toJson(myGroup));
-
-				return;
-			}
-		});
-
-		alert.setNegativeButton("Cancel", null);
-		alert.show();
-
-	}
-	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case R.id.action_compose_achievement:
-			addAchievement();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
 	/*
 	 * @Override public boolean onOptionsItemSelected(MenuItem item) { switch
 	 * (item.getItemId()) { case android.R.id.home: // This ID represents the
