@@ -13,6 +13,7 @@ import android.util.Log;
 
 public class ACGroup {
 	private String id; //md5 hash of the name
+	private String id_state; //md5 changed at every update
 	private String name;
 	private String descr;
 	private ArrayList<ACItem> acs;
@@ -32,6 +33,12 @@ public class ACGroup {
 	public void setId(String id) {
 		String id_md5 = Utils.str2md5(id);
 		this.id = id_md5;
+	}
+	public String getId_state() {
+		return id_state;
+	}
+	public void setId_state(String id_state) {
+		this.id_state = id_state;
 	}
 	public String getName() {
 		return name;
@@ -79,7 +86,7 @@ public class ACGroup {
 	
 	public void onChangeData() {
 		updatePoints();
-		//updateHash();
+		updateHashState();
 	}
 
 	public void updatePoints() {
@@ -90,12 +97,12 @@ public class ACGroup {
 		}
 	}
 	
-	public void updateHash() {
+	public void updateHashState() {
 		String hash = name;
 		for (ACItem ac : acs) {
 			hash = Utils.str2md5(hash+ac.getId());
 		}
-		setId(hash);
+		setId_state(hash);
 	}
 
 	public String getScore() {		
