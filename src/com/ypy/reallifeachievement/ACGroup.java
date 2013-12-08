@@ -172,6 +172,13 @@ public class ACGroup {
 		}
 	}
 
+	public ACItem findAC(String id){
+		for (ACItem ac : acs ) {
+			if (ac.getId() == id) return ac;
+		}
+		return null;
+	}
+	
 
 
 }
