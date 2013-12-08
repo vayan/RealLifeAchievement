@@ -81,33 +81,61 @@ public class MainActivity extends NfcEnabledActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
+
+	protected void firstFeed() {
+		myGroups.add(new ACGroup("Beijing tour", "Let s visit Beijing !"));
+		myGroups.get(0).AddACItem(new ACItem("Great Wall", ""));
+		myGroups.get(0).AddACItem(new ACItem("Temple of heaven", ""));
+		myGroups.get(0).AddACItem(new ACItem("Forbidden City", ""));
+		myGroups.get(0).AddACItem(new ACItem("Tiananmen Square", ""));
+		myGroups.get(0).AddACItem(new ACItem("Hutongs Tour", ""));
+		myGroups.get(0).AddACItem(new ACItem("Mings Tombs", ""));
+		myGroups.get(0).AddACItem(new ACItem("Lama temple", ""));
+		myGroups.get(0).AddACItem(new ACItem("Benhai park", ""));
+		myGroups.get(0).AddACItem(new ACItem("Capital museum", ""));
+		myGroups.get(0).saveMe(this);
+
+		myGroups.add(new ACGroup("Beijing's Marathon 2014", ""));
+		myGroups.get(1).AddACItem(new ACItem("Let's take a walk !", ""));
+		myGroups.get(1).AddACItem(new ACItem("Run 10km in a week", ""));
+		myGroups.get(1).AddACItem(new ACItem("I run since 2 weeks !", ""));
+		myGroups.get(1).AddACItem(new ACItem("Do it in mountain", ""));
+		myGroups.get(1).AddACItem(new ACItem("Run faster than 10km/h for 3km", ""));
+		myGroups.get(1).AddACItem(new ACItem("Do the 10km", ""));
+		myGroups.get(1).AddACItem(new ACItem("Do the Half marathon", ""));
+		myGroups.get(1).AddACItem(new ACItem("Do the marathon", ""));
+		myGroups.get(1).saveMe(this);
 		
+		myGroups.add(new ACGroup("Discover Victor Hugo", ""));
+		myGroups.get(2).AddACItem(new ACItem("Watch \"Les Miserables\"", ""));
+		myGroups.get(2).AddACItem(new ACItem("Read \"The Last Day of a Condemned Man\"", ""));
+		myGroups.get(2).AddACItem(new ACItem("Read \"Notre Dame de Paris\"", ""));
+		myGroups.get(2).AddACItem(new ACItem("Read \"Les Miserables\"", ""));
+		myGroups.get(2).saveMe(this);
+
+		myGroups.add(new ACGroup("Angelhack Beijing 2013", ""));
+		myGroups.get(3).AddACItem(new ACItem("Find a revolutionnary idea", ""));
+		myGroups.get(3).AddACItem(new ACItem("Bribe the jury", ""));
+		myGroups.get(3).AddACItem(new ACItem("Form a great Team", ""));
+		myGroups.get(3).AddACItem(new ACItem("Work", ""));
+		myGroups.get(3).AddACItem(new ACItem("Work again", ""));
+		myGroups.get(3).AddACItem(new ACItem("Sleep", ""));
+		myGroups.get(3).AddACItem(new ACItem("Find good joke for the presentation", ""));
+		myGroups.get(3).saveMe(this);
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
 		final ListView listview = (ListView) findViewById(R.id.listview);
 
 		new Utils();
 		myGroups = Utils.RestoreAllGroup(this);
 
 		if (myGroups.size() == 0) {
-
-			myGroups.add(new ACGroup("Beijing tour", "Let s visit Beijing !"));
-			myGroups.get(0)
-					.AddACItem(
-							new ACItem("Muraille de chine",
-									"Devenez un homme un vrais"));
-			myGroups.get(0).saveMe(this);
-			myGroups.add(new ACGroup("Marathon 2014",
-					"what if you become an athlet next year ?"));
-			myGroups.get(1).saveMe(this);
-
-			myGroups.add(new ACGroup("In your bed. Or not",
-					"Tell me what happened there..."));
-			myGroups.get(2).saveMe(this);
-
+			firstFeed();
 		}
 		adapter = new MyArrayAdapter(this, myGroups);
 		listview.setAdapter(adapter);
