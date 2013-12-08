@@ -173,6 +173,7 @@ public class ACGroup {
 	}
 
 	public ACItem findAC(String id){
+		if (id == null) return null;
 		for (ACItem ac : acs ) {
 			if (ac.getId().equals(id)) return ac;
 		}
